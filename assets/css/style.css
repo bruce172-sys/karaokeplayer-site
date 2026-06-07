@@ -12,3 +12,13 @@
 .hero-main-shot{margin-top:4px}
 .format-list{columns:2;gap:24px}
 @media(max-width:700px){.format-list{columns:1}}
+
+
+/* WhatsApp e sviluppi personalizzati */
+.btn.whatsapp,.btn2.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);color:#04110a;border-color:rgba(37,211,102,.55)}
+.whatsapp-link{display:inline-flex!important;align-items:center;gap:8px;color:#dfffee!important;font-weight:900}
+.whatsapp-link::before{content:"💬";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#25D366;color:#04110a;font-size:13px}
+.custom-dev{background:linear-gradient(135deg,rgba(255,202,56,.16),rgba(0,168,255,.12));border:1px solid var(--line);border-radius:22px;padding:28px;margin-top:24px}
+.download-hero-card{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;margin-top:26px}
+.requirements{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.download-hero-card,.requirements{grid-template-columns:1fr}}
