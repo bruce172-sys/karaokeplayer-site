@@ -2,10 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://karaokeplayer.it/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
 <url><loc>https://karaokeplayer.it/funzionalita.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://karaokeplayer.it/creare-karaoke-da-mp3.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://karaokeplayer.it/formati-karaoke-supportati.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/dj-online.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://karaokeplayer.it/creare-karaoke-da-mp3.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/midi-soundfont.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/multitraccia-band.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://karaokeplayer.it/personalizzazioni.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/prezzi.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/download.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/screenshot.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -16,7 +18,4 @@
 <url><loc>https://karaokeplayer.it/termini-vendita.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/eula.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://karaokeplayer.it/termini-dj-online.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <url><loc>https://karaokeplayer.it/formati-karaoke-supportati.html</loc></url>
-<url><loc>https://karaokeplayer.it/personalizzazioni.html</loc></url>
 </urlset>

@@ -22,3 +22,9 @@
 .download-hero-card{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;margin-top:26px}
 .requirements{grid-template-columns:repeat(2,1fr)}
 @media(max-width:900px){.download-hero-card,.requirements{grid-template-columns:1fr}}
+
+/* Vegas Karaoke Player 1.7.1 additions */
+.hero-mini-shot{width:96%;margin:0 auto;border-radius:14px;border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,.38);background:#05070b}
+.gallery figure img{width:100%;display:block}
+.legal h1{font-size:clamp(34px,5vw,54px)}
+.warning{background:rgba(255,49,93,.12);border:1px solid rgba(255,49,93,.35);color:#ffd6df;padding:12px;border-radius:14px;margin:14px 0;font-weight:800}
