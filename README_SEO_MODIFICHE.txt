@@ -1,0 +1,1 @@
+Modifiche SEO applicate: title/description unici, H1 ottimizzati, Open Graph/Twitter Card, Schema.org SoftwareApplication, nuova pagina FAQ con FAQPage schema, sitemap.xml aggiornata, robots.txt corretto, favicon leggeri 32/180/192, alt immagini migliorati, versioni uniformate a 1.7.3.
