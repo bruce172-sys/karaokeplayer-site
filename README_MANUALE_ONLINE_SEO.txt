@@ -1,0 +1,1 @@
+Aggiornamento SEO da manuale: aggiunte pagine HTML di documentazione online, manuale PDF in /docs, sitemap aggiornata e menu con Manuale Online. Caricare tutto il contenuto dello ZIP nella root del sito.
