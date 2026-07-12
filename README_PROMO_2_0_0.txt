@@ -1,4 +1,4 @@
-Aggiornamento promo lancio Vegas Karaoke Player 2.2.0
+Aggiornamento promo lancio Vegas Karaoke Player 2.2.1
 
 Modifiche effettuate:
 - Banner promo in Home, Prezzi, Download, Acquista e FAQ.
