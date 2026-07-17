@@ -11,5 +11,5 @@ Incluso:
 - Sitemap e robots aggiornati
 - ALT immagini controllati
 
-Installer: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/V.2.2.1/VegasKaraokePlayer_Setup_2_2_1.exe
+Installer: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/V2.3.0/VegasKaraokePlayer_Setup_2_3_0.exe
 Banco Suoni Pro: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/BS/VegasKaraoke_Pro_Banco_Suoni.vksf
