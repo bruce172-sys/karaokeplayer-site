@@ -1,6 +1,6 @@
-VEGAS KARAOKE PLAYER - AGGIORNAMENTO SITO 2.3.0
+VEGAS KARAOKE PLAYER - AGGIORNAMENTO SITO 2.3.1
 
-Aggiornato il link installer alla versione 2.3.0.
+Aggiornato il link installer alla versione 2.3.1.
 Aggiunte le novità del 16/07/2026:
 - Monitor karaoke su tablet o telefono tramite QR Code
 - Passaggio al brano successivo con dissolvenza opzionale

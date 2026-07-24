@@ -9,4 +9,4 @@ Incluso:
 - Pagina utility.html SEO
 - Sitemap aggiornata
 
-Installer: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/V2.3.0/VegasKaraokePlayer_Setup_2_3_0.exe
+Installer: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/V.2.3.1/VegasKaraokePlayer_Setup_2_3_1.exe
