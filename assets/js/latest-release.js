@@ -1,164 +1,126 @@
-(() => {
+(function () {
   'use strict';
 
-  const API_URL = 'https://api.github.com/repos/bruce172-sys/VegasKaraokePlayer/releases/latest';
-  const CACHE_KEY = 'vegas-karaoke-latest-release-v1';
-  const CACHE_TTL = 30 * 60 * 1000;
-  const FALLBACK = {
-    version: '2.3.1',
-    title: 'Vegas Karaoke Player 2.3.1',
-    date: '17/07/2026',
-    download: 'https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/V.2.3.1/VegasKaraokePlayer_Setup_2_3_1.exe',
-    notes: [
-      'Ultima versione stabile disponibile per Windows.',
-      'Monitor karaoke su tablet e telefono tramite QR Code.',
-      'Fonico AI, ASIO, FX/VST live e strumenti professionali.'
-    ]
-  };
+  var REPO = 'bruce172-sys/VegasKaraokePlayer';
+  var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
 
-  function cleanVersion(value) {
-    const text = String(value || '');
-    const match = text.match(/(?:^|[^0-9])(\d+\.\d+\.\d+)(?:[^0-9]|$)/);
-    return match ? match[1] : text.replace(/^v\.?/i, '').trim();
+  function versionFrom(value) {
+    var text = String(value || '');
+    var match = text.match(/(\d+\.\d+\.\d+)/);
+    return match ? match[1] : '';
   }
 
-  function formatDate(value) {
+  function dateIt(value) {
     if (!value) return '';
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return '';
-    return new Intl.DateTimeFormat('it-IT', {
-      day: '2-digit', month: '2-digit', year: 'numeric'
-    }).format(date);
+    var d = new Date(value);
+    if (isNaN(d.getTime())) return '';
+    return ('0' + d.getDate()).slice(-2) + '/' +
+      ('0' + (d.getMonth() + 1)).slice(-2) + '/' + d.getFullYear();
   }
 
-  function parseNotes(markdown) {
-    const lines = String(markdown || '')
+  function notesFrom(body) {
+    return String(body || '')
       .replace(/\r/g, '')
       .split('\n')
-      .map(line => line.trim())
+      .map(function (line) { return line.trim(); })
+      .filter(function (line) { return line && !/^#{1,6}\s/.test(line); })
+      .map(function (line) {
+        return line
+          .replace(/^[-*+]\s+/, '')
+          .replace(/^\d+[.)]\s+/, '')
+          .replace(/\*\*/g, '')
+          .trim();
+      })
       .filter(Boolean)
-      .filter(line => !/^#{1,6}\s/.test(line))
-      .map(line => line.replace(/^[-*+]\s+/, '').replace(/^\d+[.)]\s+/, '').trim())
-      .filter(Boolean);
-    return lines.slice(0, 20);
+      .slice(0, 20);
   }
 
-  function fromGithub(data) {
-    const assets = Array.isArray(data.assets) ? data.assets : [];
-    const installer = assets.find(asset => /^VegasKaraokePlayer_Setup_.*\.exe$/i.test(asset.name || ''))
-      || assets.find(asset => /\.exe$/i.test(asset.name || ''));
-    if (!installer || !installer.browser_download_url) {
-      throw new Error('Installer EXE non trovato nella release più recente.');
+  function findInstaller(assets) {
+    var list = Array.isArray(assets) ? assets : [];
+    var i;
+    for (i = 0; i < list.length; i += 1) {
+      if (/^VegasKaraokePlayer_Setup_.*\.exe$/i.test(list[i].name || '')) return list[i];
     }
-    const version = cleanVersion(data.tag_name || data.name);
-    return {
-      version,
-      title: data.name || `Vegas Karaoke Player ${version}`,
-      date: formatDate(data.published_at || data.created_at),
-      download: installer.browser_download_url,
-      notes: parseNotes(data.body),
-      htmlUrl: data.html_url || ''
-    };
-  }
-
-  function readCache() {
-    try {
-      const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
-      if (cached && cached.savedAt && Date.now() - cached.savedAt < CACHE_TTL) {
-        return cached.release;
-      }
-    } catch (_) {}
+    for (i = 0; i < list.length; i += 1) {
+      if (/\.exe$/i.test(list[i].name || '')) return list[i];
+    }
     return null;
   }
 
-  function writeCache(release) {
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), release }));
-    } catch (_) {}
-  }
-
-  function setText(selector, value) {
-    document.querySelectorAll(selector).forEach(el => { el.textContent = value; });
+  function setText(selector, text) {
+    var nodes = document.querySelectorAll(selector);
+    for (var i = 0; i < nodes.length; i += 1) nodes[i].textContent = text;
   }
 
   function updateNotes(notes) {
-    document.querySelectorAll('[data-release-notes]').forEach(container => {
-      container.replaceChildren();
-      const items = notes && notes.length ? notes : FALLBACK.notes;
-      items.forEach(note => {
-        const item = document.createElement('span');
-        item.textContent = `✅ ${note}`;
-        container.appendChild(item);
-      });
-    });
-  }
-
-  function updateMeta(release) {
-    const version = release.version;
-    document.title = document.title.replace(/\d+\.\d+\.\d+/g, version);
-    ['description'].forEach(name => {
-      const meta = document.querySelector(`meta[name="${name}"]`);
-      if (meta) meta.content = meta.content.replace(/\d+\.\d+\.\d+/g, version);
-    });
-    ['og:title', 'og:description'].forEach(prop => {
-      const meta = document.querySelector(`meta[property="${prop}"]`);
-      if (meta) meta.content = meta.content.replace(/\d+\.\d+\.\d+/g, version);
-    });
-    ['twitter:title', 'twitter:description'].forEach(name => {
-      const meta = document.querySelector(`meta[name="${name}"]`);
-      if (meta) meta.content = meta.content.replace(/\d+\.\d+\.\d+/g, version);
-    });
-    document.querySelectorAll('script[type="application/ld+json"]').forEach(node => {
-      try {
-        const data = JSON.parse(node.textContent);
-        if (data && data['@type'] === 'SoftwareApplication') {
-          data.softwareVersion = version;
-          node.textContent = JSON.stringify(data);
-        }
-      } catch (_) {}
-    });
-  }
-
-  function applyRelease(release) {
-    const value = { ...FALLBACK, ...release };
-    setText('[data-release-version]', value.version);
-    setText('[data-release-title]', value.title);
-    setText('[data-release-date]', value.date || FALLBACK.date);
-    document.querySelectorAll('[data-release-download]').forEach(link => {
-      link.href = value.download;
-      const template = link.getAttribute('data-download-label');
-      if (template) link.textContent = template.replace('{version}', value.version);
-    });
-    document.querySelectorAll('[data-release-page]').forEach(link => {
-      if (value.htmlUrl) link.href = value.htmlUrl;
-    });
-    updateNotes(value.notes);
-    updateMeta(value);
-    document.documentElement.dataset.releaseLoaded = 'true';
-  }
-
-  async function loadLatestRelease() {
-    const cached = readCache();
-    if (cached) applyRelease(cached);
-    else applyRelease(FALLBACK);
-
-    try {
-      const response = await fetch(API_URL, {
-        headers: { 'Accept': 'application/vnd.github+json' },
-        cache: 'no-store'
-      });
-      if (!response.ok) throw new Error(`GitHub API: ${response.status}`);
-      const release = fromGithub(await response.json());
-      writeCache(release);
-      applyRelease(release);
-    } catch (error) {
-      console.warn('Aggiornamento automatico release non disponibile:', error);
+    if (!notes.length) return;
+    var boxes = document.querySelectorAll('[data-release-notes]');
+    for (var i = 0; i < boxes.length; i += 1) {
+      var box = boxes[i];
+      var fragment = document.createDocumentFragment();
+      for (var j = 0; j < notes.length; j += 1) {
+        var item = document.createElement('span');
+        item.textContent = '✅ ' + notes[j];
+        fragment.appendChild(item);
+      }
+      while (box.firstChild) box.removeChild(box.firstChild);
+      box.appendChild(fragment);
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadLatestRelease, { once: true });
-  } else {
-    loadLatestRelease();
+  function apply(data) {
+    if (!data || data.draft || data.prerelease) return;
+
+    var version = versionFrom(data.tag_name || data.name);
+    var installer = findInstaller(data.assets);
+    if (!version || !installer || !installer.browser_download_url) return;
+
+    setText('[data-release-version]', version);
+    var published = dateIt(data.published_at || data.created_at);
+    if (published) setText('[data-release-date]', published);
+
+    var links = document.querySelectorAll('[data-release-download]');
+    for (var i = 0; i < links.length; i += 1) {
+      links[i].href = installer.browser_download_url;
+      var template = links[i].getAttribute('data-download-label');
+      if (template) links[i].textContent = template.replace('{version}', version);
+    }
+
+    updateNotes(notesFrom(data.body));
   }
-})();
+
+  function start() {
+    // Il contenuto HTML resta sempre visibile. In caso di qualsiasi errore non viene modificato nulla.
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;
+    var url = API + '?nocache=' + Date.now();
+    var options = { cache: 'no-store' };
+    if (controller) options.signal = controller.signal;
+
+    fetch(url, options)
+      .then(function (response) {
+        if (!response.ok) throw new Error('GitHub API ' + response.status);
+        return response.json();
+      })
+      .then(apply)
+      .catch(function (error) {
+        // Errore ignorato intenzionalmente: la pagina deve restare utilizzabile con i dati statici.
+        if (window.console && console.warn) console.warn('Aggiornamento release non disponibile:', error);
+      })
+      .finally(function () {
+        if (timer) clearTimeout(timer);
+      });
+  }
+
+  try {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(start, 250);
+      }, { once: true });
+    } else {
+      setTimeout(start, 250);
+    }
+  } catch (error) {
+    if (window.console && console.warn) console.warn('Script release disattivato:', error);
+  }
+}());
