@@ -12,4 +12,4 @@ Incluso:
 - ALT immagini controllati
 
 Installer: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/V.2.3.1/VegasKaraokePlayer_Setup_2_3_1.exe
-Banco Suoni Pro: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/BS/VegasKaraoke_Pro_Banco_Suoni.vksf
+Banco Suoni Pro: https://github.com/bruce172-sys/VegasKaraokePlayer/releases/download/1.0/VegasKaraoke_Pro_Banco_Suoni_VK_CC97ADAFD899.vksf
