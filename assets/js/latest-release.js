@@ -73,7 +73,7 @@
 
     var version = versionFrom(data.tag_name || data.name);
     var installer = findInstaller(data.assets);
-    if (!version || !installer || !installer.browser_download_url) return;
+    if (!version || !/^3\./.test(version) || !installer || !installer.browser_download_url) return;
 
     setText('[data-release-version]', version);
     var published = dateIt(data.published_at || data.created_at);
